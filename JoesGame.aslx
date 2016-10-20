@@ -1,0 +1,123 @@
+<!--Saved by Quest 5.6.6108.15891-->
+<asl version="550">
+  <include ref="English.aslx" />
+  <include ref="Core.aslx" />
+  <game name="Joe's Quest Game">
+    <gameid>23c3c4df-de1c-4e66-b8ea-25fc6e8aa8cf</gameid>
+    <version>1.0</version>
+    <firstpublished>2016</firstpublished>
+    <author>Joe McTee</author>
+    <subtitle>Beginnings: Learning Quest</subtitle>
+    <cover>mcjoe_comic2_bigger.png</cover>
+    <description>Sample game used to learn Quest</description>
+    <feature_pictureframe />
+    <gridmap type="boolean">false</gridmap>
+    <category>Educational</category>
+    <defaultbackground>SkyBlue</defaultbackground>
+  </game>
+  <object name="Foyer">
+    <inherit name="editor_room" />
+    <picture>foyer.jpg</picture>
+    <object name="Me">
+      <inherit name="editor_object" />
+      <inherit name="editor_player" />
+    </object>
+    <exit alias="south" to="Receiving Room">
+      <inherit name="southdirection" />
+    </exit>
+  </object>
+  <object name="Receiving Room">
+    <inherit name="editor_room" />
+    <picture>receivingRoom.jpg</picture>
+    <enter type="script">
+      msg ("You see doors to your west and south. To your east is a large picture window.")
+    </enter>
+    <exit alias="south" to="Hall">
+      <inherit name="southdirection" />
+    </exit>
+    <exit alias="north" to="Foyer">
+      <inherit name="northdirection" />
+    </exit>
+    <exit alias="west" to="Kitchen">
+      <inherit name="westdirection" />
+    </exit>
+    <exit alias="east" to="Receiving Room">
+      <inherit name="eastdirection" />
+      <lookonly />
+      <look type="script">
+        if (RandomChance(20)) {
+          SetFramePicture ("stormymountains.jpg")
+          msg ("Through the large window, you see the Rocky Mountains. Looks Stormy!")
+        }
+        else {
+          SetFramePicture ("mountains.jpg")
+          msg ("Through the large window, you see the Rocky Mountains. Beautiful!")
+        }
+      </look>
+    </exit>
+  </object>
+  <object name="Kitchen">
+    <inherit name="editor_room" />
+    <picture>kitchen.jpg</picture>
+    <exit alias="east" to="Receiving Room">
+      <inherit name="eastdirection" />
+    </exit>
+  </object>
+  <object name="Hall">
+    <inherit name="editor_room" />
+    <attr name="grid_length" type="int">2</attr>
+    <picture>hall.jpg</picture>
+    <exit alias="north" to="Receiving Room">
+      <inherit name="northdirection" />
+    </exit>
+    <exit alias="west" to="Bedroom 1">
+      <inherit name="westdirection" />
+    </exit>
+    <exit alias="east" to="Bedroom 2">
+      <inherit name="eastdirection" />
+    </exit>
+  </object>
+  <object name="Bedroom 1">
+    <inherit name="editor_room" />
+    <picture>bedroom.jpg</picture>
+    <enter type="script">
+      if (not Fluffy.found) {
+        if (RandomChance(80)) {
+          MoveObjectHere (Fluffy)
+          MakeObjectVisible (Fluffy)
+          set (Fluffy, "found", True)
+          msg ("Fluffy is laying on the bed")
+        }
+      }
+    </enter>
+    <exit alias="east" to="Hall">
+      <inherit name="eastdirection" />
+    </exit>
+  </object>
+  <object name="Bedroom 2">
+    <inherit name="editor_room" />
+    <picture>bedroom.jpg</picture>
+    <enter type="script">
+      if (not Fluffy.found) {
+        if (RandomChance(20)) {
+          MoveObjectHere (Fluffy)
+          MakeObjectVisible (Fluffy)
+          set (Fluffy, "found", True)
+          msg ("Fluffy is sitting on the chair")
+        }
+      }
+    </enter>
+    <beforeenter type="script">
+    </beforeenter>
+    <exit alias="west" to="Hall">
+      <inherit name="westdirection" />
+    </exit>
+  </object>
+  <object name="Fluffy">
+    <inherit name="editor_object" />
+    <inherit name="namedfemale" />
+    <drop type="boolean">false</drop>
+    <found type="boolean">false</found>
+    <visible type="boolean">false</visible>
+  </object>
+</asl>
