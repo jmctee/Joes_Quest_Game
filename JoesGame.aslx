@@ -113,7 +113,7 @@
       <inherit name="westdirection" />
     </exit>
   </object>
-  <object name="Fluffy">
+  <object name="Fluffy_Rawr">
     <inherit name="editor_object" />
     <inherit name="namedfemale" />
     <drop type="boolean">false</drop>
